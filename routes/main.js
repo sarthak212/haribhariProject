@@ -141,10 +141,27 @@ router.post('/remove', passportConf.isAuthenticated, (req, res, next) => {
 
 router.get('/', (req, res, next) => {
     if (req.user) {
-        paginate(req, res, next);
-    } else {
+        //paginate(req, res, next);
+		res.render('main/home');
+		console.log("here i am ");
+    } 
+	else {
         res.render('main/home');
     }
+});
+
+
+//my self routes
+router.get('/shop',(req,res,next)=>
+{
+ if(req.user)
+ {
+ 	 res.render('main/shop');
+ }
+ else
+ {
+ res.render('main/shop');
+ }
 });
 
 router.get('/page/:page', (req, res, next) => {

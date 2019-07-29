@@ -28,7 +28,7 @@ const apiRoutes = require('./api/api');
 const app = express();
 
 // connect node to mongodb
-mongoose.connect(secret.database, (err) => {
+mongoose.connect('mongodb://localhost:27017/haribhari', (err) => {
     if (err) {
         console.log('Make sure the database server is running ' + err);
     } else {
@@ -89,8 +89,9 @@ app.get('/*', (req, res, next) => {
     }
 });
 
+
 // configure the server's listen port and give user feedback
-app.listen(secret.port, (err) => {
+app.listen(3000, (err) => {
     if (err) throw err;
     console.log('Go to http://localhost:' + secret.port + ' in your browser');
 });
