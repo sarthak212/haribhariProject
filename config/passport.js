@@ -21,29 +21,38 @@ passport.deserializeUser((id, done) => {
 });
 
 // give the middleware a name, and create a new anonymous instance of LocalStrategy
-passport.use('local-login', new LocalStrategy({
+passport.use('local', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
-    passReqToCallback: true
-}, (req, email, password, done) => {
-    // find a specific email
-    User.findOne({email: email}, (err, user) => {
-        // incase of an error return a callback
-        if (err) return done(err);
-
+    passReqToCallback: false
+}, async (email, password, done) => {
+    try {
+        // 1) Check if the email already exists
+        const user = await User.findOne({ 'email': email });
         if (!user) {
-            return done(null, false, req.flash('loginMessage', 'No user with such credentials found'));
+            return done(null, false, { message: 'Unknown User' });
         }
 
-        // compare user provided password and the database one
-        if (!user.comparePassword(password)) {
-            return done(null, false, req.flash('loginMessage', 'Oops! Wrong credentials'));
+        // 2) Check if the password is correct
+        const isValid = await User.comparePasswords(password, user.password);
+        if(!isValid)
+        {
+            return done(null,false,{ message : 'Unknown Password'});
+        }
+        // 3) Check is the account is been Verified
+        if(!user.active){
+
+            return done(null,false,{message:'You need to verify email first'});
         }
 
-        // return user object
-        return done(null, user);
-
-    });
+        if (isValid) {
+            return done(null, user);
+        } else {
+            return done(null, false, { message: 'Unknown Password' });
+        }
+    } catch(error) {
+        return done(error, false);
+    }
 }));
 
 passport.use(new FacebookStrategy(secret.facebook, (token, refreshToken, profile, done) => {
@@ -82,6 +91,7 @@ passport.use(new FacebookStrategy(secret.facebook, (token, refreshToken, profile
         }
     });
 }));
+
 
 // custom function validate
 exports.isAuthenticated = (req, res, next) => {

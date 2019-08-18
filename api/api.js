@@ -28,17 +28,16 @@ router.get('/:name', (req, res, next) => {
     // executes array of functions in series, passing result of previous function to the next
     async.waterfall([
         // function 1
-        (callback) => {
+        function(callback) {
             Category.findOne({name: req.params.name}, (err, category) => {
                 // oops error might occur
                 if (err) return next(err);
                 // return results to callback
                 callback(null, category);
             });
-
-        },
+        },	
         // function 2
-        (category) => {
+        function(category,callback){
             for (let i = 0; i < 30; i++) {
                 // create a new product instance
                 const product = new Product();

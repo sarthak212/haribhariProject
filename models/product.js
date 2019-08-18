@@ -6,9 +6,9 @@ ObjectId = Schema.Types;
 
 const ProductSchema = new Schema({
     category: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Category'
+        type: mongoose.Schema.Types.ObjectId, ref: 'Category',es_schema:"Category", es_indexed:true
     },
-    name: String,
+    name: {type:String,es_indexed:true},
     price: String,
     image: String
 });
