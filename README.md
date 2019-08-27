@@ -3,8 +3,8 @@ An amazon clone ecommerce store built in NodeJS utilizing Express, Stripe Paymen
 
 ### Live Demo
 View the live demo as hosted on Heroku at 
-https://nameless-eyrie-75082.herokuapp.com/
- (application may take few seconds to open)
+https://nameless-eyrie-75082.herokuserver.com/
+ (serverlication may take few seconds to open)
 
 ### Requirements
 ```
@@ -12,6 +12,7 @@ https://nameless-eyrie-75082.herokuapp.com/
 2. NodeJS (https://nodejs.org/)
 3. Sublime Text Editor (optional: I use WebStorm)
 4. MongoDB (you can use www.mlab.com)
+
 5. Elastic Search (https://www.elastic.co/):
     Download version 1.7.5 others are not compatable
 6. Stripe account
@@ -27,7 +28,7 @@ Add mongodb URL:
  ```
  secretKey: "<add_secret_key>" - e.g. LKSJ&%$#XFE
  ```
-Using Facebook developer site, create a Facebook app and retrieve the following:
+Using Facebook developer site, create a Facebook server and retrieve the following:
 ```
 clientID: process.env.FACEBOOK_ID || '<facebook_id>'
 
@@ -39,7 +40,7 @@ Open routes/main.js to add the 'sk_test_SAF...'
 number retrieved from Stripe.com
 ```
  
-## Running the application
+## Running the serverlication
 
  Now that we are set. Open project in terminal, and:
  ```
@@ -59,7 +60,7 @@ number retrieved from Stripe.com
  
 ## Testing 
  
- Add testing data to the application by loading API data from Faker API. To do this,
+ Add testing data to the serverlication by loading API data from Faker API. To do this,
  open ``http://localhost:3000/api/<name-of-category-added>``. Do this for all categories. I will automate this functionality with Cypress UI automation tool.
  
  ``started on automating this``
@@ -70,7 +71,7 @@ number retrieved from Stripe.com
  
 ## Docker & Kubernetes
 
-To create a Docker container for the application, ``docker build -t etswana:1.0.0 .``. Create the Docker image with ``docker run etswana:1.0.0``
+To create a Docker container for the serverlication, ``docker build -t etswana:1.0.0 .``. Create the Docker image with ``docker run etswana:1.0.0``
 
 WIP: add more instructions on setting up Docker and Kubernetes including monitoring.
  

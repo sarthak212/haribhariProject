@@ -8,9 +8,11 @@ const Schema = mongoose.Schema;
  We have a Schema below with email, password, profile, address, history properties */
 const UserSchema = new Schema({
     email: {type: String, unique: true, lowercase: true},
+	username:String,
     facebook: String,
-    tokens: Array,
+    secretToken: String,
     password: String,
+	active:Boolean,
     profile: {
         name: {type: String, default: ''},
         picture: {type: String, default: ''}
@@ -20,8 +22,30 @@ const UserSchema = new Schema({
         paid: {type: Number, default: 0},
         item: {type: Schema.Types.ObjectId, ref: 'Product'}
     }]
+	, 
 });
 
+
+//const User = mongoose.model('user', UserSchema);
+//module.exports = User;
+
+/*
+module.exports.hashPassword = async (password) => {
+    try {
+        const salt = await bcrypt.genSalt(10);
+        return await bcrypt.hash(password, salt);
+    } catch(error) {
+        throw new Error('Hashing failed', error);
+    }
+};
+module.exports.comparePasswords = async (inputPassword, hashedPassword) => {
+    try {
+        return await bcrypt.compare(inputPassword, hashedPassword);
+    } catch(error) {
+        throw new Error('Comparing failed', error);
+    }
+};
+*/
 /** Hash the password before saving it to the database*/
 UserSchema.pre('save', function(next) {
     /** this refers to the user passed as argument to the save method in /routes/user*/

@@ -24,6 +24,7 @@ const errorRoutes = require('./routes/error');
 const adminRoutes = require('./routes/admin');
 const apiRoutes = require('./api/api');
 
+require('./config/passport');
 // initialize express
 const app = express();
 
@@ -50,6 +51,13 @@ app.use(session({
 }));
 
 app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success_messages = req.flash('success');
+  res.locals.error_messages = req.flash('error');
+  res.locals.isAuthenticated = req.user ? true : false;
+  next();
+});
 // set the view
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
@@ -89,7 +97,7 @@ app.get('/*', (req, res, next) => {
     }
 });
 
-
+//secret.port
 // configure the server's listen port and give user feedback
 app.listen(3000, (err) => {
     if (err) throw err;

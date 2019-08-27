@@ -2,11 +2,102 @@
 const router = require('express').Router();
 const passport = require('passport');
 const async = require('async');
-
+const Joi = require('joi');
+const randomstring = require('randomstring');
+const mailer=require('../misc/mailer');
 // custom imports
 const Cart = require('../models/cart');
 const User = require('../models/user');
 const passportConf = require('../config/passport');
+
+
+const userSchema = Joi.object().keys({
+  email: Joi.string().email().required(),
+  username: Joi.string().required(),
+  password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+  confirmationPassword: Joi.any().valid(Joi.ref('password')).required()
+});
+
+// Authorization 
+const isAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    req.flash('error', 'Sorry, but you must be registered first!');
+    res.redirect('/');
+  }
+};
+
+const isNotAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    req.flash('error', 'Sorry, but you are already logged in!');
+    res.redirect('/');
+  } else {
+    return next();
+  }
+};
+
+/*
+router.route('/register')
+  .get(isNotAuthenticated, (req, res) => {
+    res.render('accounts/register');
+  })
+  .post(async (req, res, next) => {
+    try {
+      const result = Joi.validate(req.body, userSchema);
+      if (result.error) {
+        req.flash('error', 'Data is not valid. Please try again.');
+        res.redirect('/register');
+        return;
+      }
+      
+
+      // Checking if email is already taken
+      const user = await User.findOne({ 'email': result.value.email });
+      if (user) {
+	    console.log('already use email');
+        req.flash('error', 'Email is already in use.');
+        res.redirect('/register');
+        return;
+      }
+
+      // Hash the password
+      const hash = await User.hashPassword(result.value.password);
+
+      const secretToken = randomstring.generate();
+      result.value.secretToken = secretToken;
+      result.value.active = false;
+      // Save user to DB
+      delete result.value.confirmationPassword;
+      result.value.password = hash;
+
+      const newUser = await new User(result.value); 
+      console.log('newUser', newUser);
+      await newUser.save();
+
+      //new mailer foundation problem
+      const html=`hi there,
+      <br/>
+      thanku for registering!
+      <br/> <br/>
+      please verify your email by typing the following details
+      <br/>
+      Token:<b>${secretToken}</b>
+      <br/>
+      On the following page:
+      <a href="http://localhost:3000/verify">http://localhost:3000/verify</a>
+      <br/><br/>
+      have a pleasent day
+      `;
+  await mailer.sendEmail('admin@haribhari.com',result.value.email,'please verify your email content',html)
+      req.flash('success', 'please check your email.');
+      res.redirect('/login');
+    } catch(error) {
+      next(error);
+    }
+  });
+
+ */
 
 /**
  *  Handles GET HTTP requests for user login
@@ -21,7 +112,7 @@ router.get('/login', (req, res) => {
 /**
  * Handles POST HTTP requests for user login - form submission
  */
-router.post('/login', passport.authenticate('local-login', {
+router.post('/login', passport.authenticate('local', {
     successRedirect: '/profile',
     failureRedirect: '/login',
     failureFlash: true
@@ -43,7 +134,11 @@ router.get('/profile', passportConf.isAuthenticated, (req, res, next) => {
 /**
  * Handles GET HTTP requests for user sign-up
  */
-router.get('/signup', (req, res, next) => {
+
+ /**
+ * Handles GET HTTP requests for user sign-up
+ */
+router.get('/register', (req, res, next) => {
     // user sign-up failed, show error message
     res.render('accounts/signup', {
         errors: req.flash('errors')
@@ -53,11 +148,14 @@ router.get('/signup', (req, res, next) => {
 /**
  * Handles POST HTTP request for user sign-up
  */
-router.post('/signup', (req, res, next) => {
+router.post('/register', (req, res, next) => {
     // executes array of functions in series, passing result of previous function to the next
     async.waterfall([
         // function 1
+
         (callback) => {
+		     
+			const result = Joi.validate(req.body, userSchema);
             // create new user model
             let user = new User();
             // populate the user properties based on what the user submitted
@@ -66,25 +164,64 @@ router.post('/signup', (req, res, next) => {
             user.password = req.body.password;
             user.email = req.body.email;
             user.profile.picture = user.gravatar();
-
-            // check submitted email against the database
-            User.findOne({email: req.body.email}, (err, existingUser) => {
+			const secretToken = randomstring.generate();
+            user.secretToken = secretToken;
+            user.active = false;
+            
+        
+		try 
+		{
+		// check submitted email against the database
+          User.findOne({email: req.body.email}, (err, existingUser) => {
                 // does the user already exist?
                 if (existingUser) {
                     // return an error message to indicate user already exists
                     req.flash('errors', 'Account with that email address already exists');
                     // redirect the user back to signup page with the error
                     return res.redirect('/signup')
-                } else {
-                    // save the user to the database if there is no error
-                    user.save((err, user) => {
+                } 
+            });
+
+      // Hash the password
+      //const hash =  User.hashPassword();
+
+      const secretToken = randomstring.generate();
+      result.value.secretToken = secretToken;
+      result.value.active = false;
+      // Save user to DB
+      //delete result.value.confirmationPassword;
+      //result.value.password = hash;
+
+      //const newUser = new User(result.value); 
+      //console.log('newUser', newUser);
+	  user.save((err, user) => {
                         // oops error might occur
                         if (err) return next(err);
                         // success set user to the callback
                         callback(null, user);
-                    });
-                }
-            });
+						});
+      //newUser.save();
+
+      //new mailer foundation problem
+      const html=`hi there,
+      <br/>
+      thanku for registering!
+      <br/> <br/>
+      please verify your email by typing the following details
+      <br/>
+      Token:<b>${secretToken}</b>
+      <br/>
+      On the following page:
+      <a href="http://localhost:3000/verify">http://localhost:3000/verify</a>
+      <br/><br/>
+      have a pleasent day
+      `;
+      mailer.sendEmail('admin@haribhari.com',result.value.email,'please verify your email content',html)
+      req.flash('success', 'please check your email.');
+      res.redirect('/login');
+    } catch(error) {
+      next(error);
+    }
         },
         // function 2 - receives result of function 1, see line 83 above
         (user) => {
@@ -107,6 +244,38 @@ router.post('/signup', (req, res, next) => {
         }
     ]);
 });
+
+
+router.route('/verify')
+ .get(isNotAuthenticated, (req, res)=>
+  {
+    res.render('accounts/verify');
+  })
+ .post(async (req,res,next) => { 
+   try{
+   const { secretToken }= req.body;
+   const user = await User.findOne({ 'secretToken' :secretToken });
+   console.log(user);
+   if(!user)
+   {
+     req.flash('error','No user found here!')
+     res.redirect('/verify');
+     return;
+   }
+   user.active=true;
+   user.secretToken = '';
+   await user.save();
+
+   req.flash('success','thank you now you may logged in');
+   res.redirect('/login');
+  }
+   catch(error){
+    next(error);
+   }
+ })
+
+
+
 
 /**
  * Handles GET HTTP requests for user logout

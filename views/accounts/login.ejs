@@ -10,21 +10,17 @@
             </div>
             <% } %>
             <h3>Welcome back and enjoy the best products at cheaper prices</h3>
-            <form action="/login" method="post" class="well well-sm">
-                <div class="form-group">
-                    <div class="form-group">
-                        <label for="">Email</label>
-                        <input type="email" id="email" class="form-control" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Password</label>
-                        <input type="password" id="password" class="form-control" name="password" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" id="submit" class="btn btn-success" value="Signin">
-                    </div>
-                </div>
-            </form>
+				   <form class="form-signin" action="/login" method="POST">
+				  <h2 class="form-signin-heading">Please sign in</h2>
+
+				  <label for="inputEmail" class="sr-only">Email address</label>
+				  <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+
+				  <label for="inputPassword" class="sr-only">Password</label>
+				  <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+				  <br/>
+			  <button class="btn btn-lg btn-default btn-block" type="submit">Sign in</button>
+</form>
 
             <a id="facebook" class="btn btn-block btn-social btn-facebook" style="height: 35px; font-size: 12px;"
                href="/auth/facebook"> <i class="fa fa-facebook-square pull-right"> &nbsp;&nbsp; Signin with Facebook</i></a>

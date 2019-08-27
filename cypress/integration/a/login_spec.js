@@ -1,4 +1,4 @@
-context('Logging users into the application', () => {
+context('Logging users into the serverlication', () => {
     specify('should fail to login user with incorrect credentials', () => {
         cy.visit('/login');
         cy.get('#email').type('tester1@gmail.com');

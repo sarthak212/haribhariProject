@@ -1,21 +1,6 @@
-/* [Master Stylesheet] */
-/*
-Template Name: Alazea - Gardening &amp; Landscaping HTML Template
-Template Author: Colorlib
-Template Author URI: http://colorlib.com
-Text Domain: Alazea, Gardening & Landscaping
-Version: - v1.0
-*/
-/* :: 1.0 Import Fonts */
+
 @import url("https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700,800");
 /* :: 2.0 Import All CSS */
-@import url(bootstrap.min.css);
-@import url(classy-nav.css);
-@import url(owl.carousel.min.css);
-@import url(animate.css);
-@import url(magnific-popup.css);
-@import url(font-awesome.min.css);
-@import url(elegant-icon.css);
 /* :: 3.0 Base CSS */
 * {
   margin: 0;
@@ -255,7 +240,12 @@ img {
   background-attachment: fixed !important; }
 
 .bg-gray {
-  background-color: #f2f4f5; }
+  background-color: #edf5e1;
+} 
+
+  .bg-1{
+    background-color: #8ee4af;
+  }
 
 /* :: 3.7.0 ScrollUp */
 #scrollUp {
@@ -677,7 +667,63 @@ img {
     z-index: 10; }
 
 /* :: 7.0 New Arrivals Products Area */
-.single-product-area {
+
+    .product-container {
+      height: 350px;
+      margin-top: 15px;
+      text-align: center;
+    }
+    .product-container .product-img{
+      position: relative;
+      height: 75%;
+    }
+    .product-container .product-img img{
+      height: 100%;
+    }
+    .product-footer {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    .cart-icon{
+      align-self: center;
+    }
+    #font-icon{
+      font-size: 3rem;
+      color: #5cdb95;
+      transition: 0.5s all;
+    }
+    #font-icon:hover{
+      color: #05386B;
+    }
+    .count{
+      text-align: center;
+      margin-top: 100px;
+      padding-bottom: 10px;
+    }
+    .count i{
+      font-size: 3.5rem;
+      margin: 3px 8px;
+      cursor: pointer;
+      color: #5cdb95;
+      transition: 0.5s all;
+    }
+    .count i:hover:not(#pageCount){
+      color: #05386B;
+    }
+    .count i:nth-child(2){
+      cursor: default;
+    }
+    .product-text p{
+      color: rgb(50,50,50);
+      font-size: 2rem;
+    }
+    .product-text h6{
+      color: #379683;
+      font-size: 1.7rem;
+    }
+/* .single-product-area {
   position: relative;
   z-index: 1;
   -webkit-transition-duration: 500ms;
@@ -766,7 +812,7 @@ img {
     box-shadow: 0 5px 30px 0 rgba(0, 0, 0, 0.15); }
     .single-product-area:hover .product-img .product-meta {
       visibility: visible;
-      opacity: 1; }
+      opacity: 1; } */
 
 /* :: 8.0 Shop Page Area CSS */
 .shop-sorting-data {
@@ -1841,175 +1887,189 @@ img {
     margin-bottom: 0;
     text-transform: uppercase; }
 
-/* :: 17.0 Footer Area CSS */
-.footer-area {
-  position: relative;
-  z-index: 1; }
-  .footer-area::after {
-    background-color: rgba(4, 43, 15, 0.8);
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    content: ""; }
-  .footer-area .main-footer-area {
-    position: relative;
-    z-index: 1;
-    padding-top: 80px; }
-  .footer-area .single-footer-widget {
-    position: relative;
-    z-index: 1;
-    margin-bottom: 70px; }
-    .footer-area .single-footer-widget p {
-      color: #b7b7b7;
-      margin-bottom: 20px; }
-    .footer-area .single-footer-widget .social-info a {
+/* Animation Area Css */
+    .Animation{
+      position: relative;
+      width: 100%;
+      height: 400px;
+      top: 50px;
+    }
+    .pageFront{
+      position: relative;
+      background-image: url('/img/bg-img/3.jpg');
+      width: 100%;
+      height: 90%;
+    }
+    .Animation i{
+      font-size: 2.2rem;
+      color: #379683;
+    }
+    .cart {
+      font-size: 2rem;
+    }
+    .cart:hover{
+      animation: cartAnim .5s linear 1;
+    }
+    @keyframes cartAnim{
+      0%{
+        transform: rotate(0deg);
+      }
+      30%{
+        transform: rotate(-20deg);
+      }
+      50%{
+        transform: rotate(0deg);
+      }
+      70%{
+        transform: rotate(20deg);
+      }
+      100%{
+        transform: rotate(0deg);
+      }
+    }
+    .searchForm{
+      float: right;
+      position: relative;
+      margin-top: 15px;
+      margin-right: 10px;
       display: inline-block;
-      border: 1px solid #b7b7b7;
+      padding: 6px;
+      width: 30%;
+      border: 1px solid rgb(200,200,200);
+      border-radius: 15px;
+    }
+    .searchForm input{
+      font-size: 1.5rem;
+      margin-left: auto;
+      width: 90%;
+      border:none;
+      color: #05386b;
+    }
+    .searchForm:focus-within{
+      border-color: #05386B;
+      box-shadow: 2px 2px rgba(200,200,200,0.8);
+    }
+    .bg-green{
+      background-color: #eafdf2;
+    }
+    @media screen and (max-width: 900px){
+      .searchForm{
+        width: auto;
+      }
+      .searchForm input{
+        font-size: 1.2rem;
+        width: auto;
+      }
+    }
+/* :: Navbar top */
+
+.nav2 {
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  padding: 10px 10px;
+  width: 100%;
+  background-color: #05386B;
+}
+.navbar1{
+  margin-left: auto;
+}
+.navbar1 a{
+  color: #edf5e1;
+  margin: 0 10px;
+  font-size: 1.7rem;
+}
+  @media screen and (max-width: 600px){
+    .navbar1 a{
+      font-size: 1.3rem;
+    }
+  }
+  @media screen and (max-width: 350px){
+    .navbar1 a{
+      font-size: 1.1rem;
+      margin: 0px 3px;
+    }
+  }
+/* :: 17.0 Footer Area CSS */
+    footer{
+      background-color: #05386B;
+      align-items: center;
+    }
+    footer .contain{
+      width: 80%;
+      margin: auto;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    footer .contain .extralink,footer .contain .address,footer .contain .social-info{
+      width: 33%;
+      margin-top: 20px;
+    }
+    .extralink nav,.address div:nth-child(2){
+      margin-top: 10%;
+    }
+    footer .contain .extralink li:nth-child(odd){
+      float: right;
+      margin-right: 15%;
+      padding-top: 2%;
+    }
+    footer .contain .extralink li:nth-child(even){
+      margin-left: 15%;
+      padding-top: 2%;
+    }
+    footer .contain .extralink li a{
+      color: #5cdb95;
+      font-size: 1.5rem;
+    }
+    footer h2{
+      color: white;
+      text-align: center;
+    }
+    .address p{
+      font-size: 1.3rem;
+      color: #5cdb95;
+    }
+    .address p span{
+      font-size: 1.7rem;
+    }
+    footer .contain .social-info{
+      align-self: flex-end;
+      display: inline-flex;
+    }
+    footer .contain .social-info a{
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      text-align: center;
-      color: #ffffff;
-      margin-right: 5px;
-      line-height: 38px; }
-      @media only screen and (min-width: 992px) and (max-width: 1199px) {
-        .footer-area .single-footer-widget .social-info a {
-          width: 30px;
-          height: 30px;
-          line-height: 28px;
-          font-size: 14px; } }
-      .footer-area .single-footer-widget .social-info a:hover, .footer-area .single-footer-widget .social-info a:focus {
-        border-color: #70c745;
-        background-color: #70c745; }
-    .footer-area .single-footer-widget .widget-title h5 {
-      font-size: 22px;
-      color: #ffffff;
-      text-transform: uppercase;
-      margin-bottom: 30px; }
-    .footer-area .single-footer-widget .widget-nav ul {
-      position: relative;
-      z-index: 1;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-wrap: wrap;
-      flex-wrap: wrap; }
-      .footer-area .single-footer-widget .widget-nav ul li {
-        -webkit-box-flex: 0;
-        -ms-flex: 0 0 50%;
-        flex: 0 0 50%;
-        max-width: 50%;
-        width: 50%; }
-        .footer-area .single-footer-widget .widget-nav ul li a {
-          display: block;
-          color: #b7b7b7;
-          font-size: 16px;
-          font-weight: 400;
-          margin-bottom: 11px; }
-          .footer-area .single-footer-widget .widget-nav ul li a:hover, .footer-area .single-footer-widget .widget-nav ul li a:focus {
-            color: #ffffff; }
-    .footer-area .single-footer-widget .single-best-seller-product {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 20px; }
-      .footer-area .single-footer-widget .single-best-seller-product::after {
-        margin-bottom: 0; }
-      .footer-area .single-footer-widget .single-best-seller-product .product-thumbnail {
-        -webkit-box-flex: 0;
-        -ms-flex: 0 0 70px;
-        flex: 0 0 70px;
-        max-width: 70px;
-        width: 70px;
-        margin-right: 30px; }
-      .footer-area .single-footer-widget .single-best-seller-product .product-info a {
-        display: block;
-        color: #b7b7b7;
-        font-size: 16px;
-        font-weight: 400; }
-        .footer-area .single-footer-widget .single-best-seller-product .product-info a:hover, .footer-area .single-footer-widget .single-best-seller-product .product-info a:focus {
-          color: #ffffff; }
-      .footer-area .single-footer-widget .single-best-seller-product .product-info p {
-        margin-bottom: 0;
-        color: #ffffff;
-        font-weight: 500; }
-    .footer-area .single-footer-widget .contact-information p {
-      line-height: 1.3;
-      color: #ffffff;
-      margin-bottom: 13px; }
-      .footer-area .single-footer-widget .contact-information p span {
-        color: #b7b7b7; }
-      .footer-area .single-footer-widget .contact-information p:last-child {
-        margin-bottom: 0; }
-  .footer-area .footer-bottom-area {
-    position: relative;
-    z-index: 1; }
-    .footer-area .footer-bottom-area .border-line {
-      width: 100%;
-      height: 1px;
-      background-color: #34513d; }
-    .footer-area .footer-bottom-area .copywrite-text {
-      position: relative;
-      z-index: 1;
-      padding: 20px 0; }
-      @media only screen and (max-width: 767px) {
-        .footer-area .footer-bottom-area .copywrite-text {
-          text-align: center;
-          padding-bottom: 0; } }
-      .footer-area .footer-bottom-area .copywrite-text p {
-        font-size: 14px;
-        color: #b7b7b7;
-        font-weight: 400;
-        margin-bottom: 0; }
-        @media only screen and (max-width: 767px) {
-          .footer-area .footer-bottom-area .copywrite-text p {
-            font-size: 12px; } }
-        .footer-area .footer-bottom-area .copywrite-text p a {
-          font-size: 14px;
-          color: #ffffff;
-          font-weight: 500; }
-          .footer-area .footer-bottom-area .copywrite-text p a:hover, .footer-area .footer-bottom-area .copywrite-text p a:focus {
-            color: #70c745; }
-          @media only screen and (max-width: 767px) {
-            .footer-area .footer-bottom-area .copywrite-text p a {
-              font-size: 12px; } }
-    .footer-area .footer-bottom-area .footer-nav {
-      position: relative;
-      z-index: 1;
-      padding: 20px 0; }
-      .footer-area .footer-bottom-area .footer-nav ul {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        -webkit-box-pack: end;
-        -ms-flex-pack: end;
-        justify-content: flex-end; }
-        @media only screen and (max-width: 767px) {
-          .footer-area .footer-bottom-area .footer-nav ul {
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center; } }
-        .footer-area .footer-bottom-area .footer-nav ul li a {
-          display: inline-block;
-          color: #b7b7b7;
-          font-size: 14px;
-          font-weight: 400;
-          margin: 0 15px; }
-          @media only screen and (min-width: 768px) and (max-width: 991px) {
-            .footer-area .footer-bottom-area .footer-nav ul li a {
-              margin: 0 8px; } }
-          @media only screen and (max-width: 767px) {
-            .footer-area .footer-bottom-area .footer-nav ul li a {
-              margin: 0 5px; } }
-          .footer-area .footer-bottom-area .footer-nav ul li a:hover, .footer-area .footer-bottom-area .footer-nav ul li a:focus {
-            color: #ffffff; }
-        .footer-area .footer-bottom-area .footer-nav ul li:last-child a {
-          margin-right: 0; }
-
+      background-color: white;
+      margin: 0 5px;
+    }
+    footer .contain .social-info a:hover{
+      background-color: #8ee4af;
+      box-shadow: 3px 4px rgba(0,0,0,0.3);
+    }
+    footer .contain .social-info a i{
+      font-size: 2rem;
+      margin: 25% 30%;
+    }
+    .copywrite p{
+      color: white;
+    }
+    .copywrite p a{
+      color: #8ee4af;
+    }
+    @media screen and (max-width: 998px){
+      footer .contain{
+        flex-direction: column;
+      }
+      footer .contain .extralink,footer .contain .address,footer .contain .social-info{
+        width: 100%;
+      }
+      .copywrite{
+        margin-top: 5%;
+      }
+    }
 /* :: 18.0 Breadcumb Area CSS */
 .breadcrumb-area {
   position: relative;
@@ -2248,7 +2308,7 @@ img {
     height: 120px; }
 
 /* :: 22.0 Sidebar Area CSS */
-@media only screen and (max-width: 767px) {
+/* @media only screen and (max-width: 767px) {
   .post-sidebar-area {
     margin-top: 100px; } }
 
@@ -2492,10 +2552,10 @@ img {
       color: #70c745; }
     @media only screen and (max-width: 767px) {
       .post-tags-share .post-share a {
-        padding: 0 5px; } }
+        padding: 0 5px; } } */
 
 /* :: 23.0 Contact Area CSS */
-.map-area {
+/* .map-area {
   position: relative;
   z-index: 2;
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.15); }
@@ -2545,7 +2605,7 @@ img {
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.15); }
   @media only screen and (max-width: 767px) {
     .contact--thumbnail {
-      margin-bottom: 100px; } }
+      margin-bottom: 100px; } } */
 
 /* :: 24.0 Portfolio Details Area CSS */
 .portfolio-details-area {
@@ -2642,3 +2702,40 @@ img {
 /* ======= The End ======= */
 
 /*# sourceMappingURL=style.css.map */
+
+/* my new style.css file for login and signup option*/
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+/* ########################ENDING ##############*/

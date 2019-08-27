@@ -7,6 +7,8 @@ const User = require('../models/user');
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 const passportConf = require('../config/passport');
+const Checkout = require('../models/checkout');
+const Contact = require('../models/contact');
 
 /**
  * Handles the products pagination/navigation
@@ -29,7 +31,7 @@ function paginate(req, res, next) {
             if (err) return next(err);
             Product.count().exec((err, count) => {
                 if (err) return next(err);
-                res.render('main/product-main', {
+                res.render('main/home',{
                     products: products,
                     pages: count / perPage
                 });
@@ -40,6 +42,7 @@ function paginate(req, res, next) {
 /**
  * Handles mapping between a product in the database and elastic search
  */
+/*
 Product.createMapping((err, mapping) => {
     //TODO: add logic to inform the user of the successful mapping
     if (err) {
@@ -55,7 +58,6 @@ let stream = Product.synchronize(), count = 0;
 stream.on('data', () => {
     count++;
 });
-
 stream.on('close', () => {
     console.log("Indexed " + count + " documents from Products");
 });
@@ -64,6 +66,7 @@ stream.on('error', (err) => {
     console.log(err);
 });
 
+*/
 /**
  * single product search
  */
@@ -94,6 +97,7 @@ router.post('/search', (req, res, next) => {
 
 router.post('/product/:product_id', passportConf.isAuthenticated, (req, res, next) => {
     Cart.findOne({owner: req.user._id}, (err, cart) => {
+	   console.log(cart);
         cart.items.push({
             item: req.body.product_id,
             price: parseFloat(req.body.priceValue),
@@ -106,9 +110,7 @@ router.post('/product/:product_id', passportConf.isAuthenticated, (req, res, nex
             if (err) return next(err);
             return res.redirect('/cart');
         })
-
     });
-
 });
 
 router.get('/cart', passportConf.isAuthenticated, (req, res, next) => {
@@ -141,16 +143,14 @@ router.post('/remove', passportConf.isAuthenticated, (req, res, next) => {
 
 router.get('/', (req, res, next) => {
     if (req.user) {
-        //paginate(req, res, next);
-		res.render('main/home');
-		console.log("here i am ");
-    } 
-	else {
-        res.render('main/home');
+        paginate(req, res, next);
     }
+	else{
+	  paginate(req, res, next);
+	}
 });
 
-
+//******************************//
 //my self routes
 router.get('/shop',(req,res,next)=>
 {
@@ -164,6 +164,104 @@ router.get('/shop',(req,res,next)=>
  }
 });
 
+//my self 2nd routes
+router.get('/about',(req,res,next)=>
+{
+res.render('main/about');
+
+});
+
+router.get('/contact',(req,res,next)=>
+{
+res.render('main/contact');
+});
+
+router.post('/contact',(req,res,next)=>
+{
+const contact = new Contact();
+console.log(req.body);
+
+contact.yourname=req.body.yourname;
+contact.email=req.body.email;
+contact.contactform=req.body.contactform;
+contact.message=req.body.message;
+
+contact.save((err) => {
+		// handle errors
+		if (err) return next(err);
+		// no errors, return success message
+		req.flash('success', 'Successfully added information');
+		// redirect to the add category view
+		return res.redirect('/');
+	})
+});
+
+
+//myself third routes goes here//
+
+router.get('/portfolio',(req,res,next)=>
+{
+res.render("main/portfolio");
+})
+
+//myself fourth routes
+router.get('/checkout',passportConf.isAuthenticated, (req, res, next) => {
+
+	Cart.findOne({owner: req.user._id})
+        .populate('items.item')
+        .exec((err, foundCart) => {
+            if (err) return next(err);
+
+            res.render('main/checkout', {
+                foundCart: foundCart
+            });
+        });
+});
+
+router.post('/checkout',(req, res, next) => {
+	// create new category instance
+	const checkout = new Checkout();
+	console.log(req.body);
+	// retrieve the category name from the data sent over from the client
+	 checkout.firstname = req.body.firstname;
+	 checkout.lastname =req.body.lastname;
+	 checkout.emailAdress = req.body.emailaddress;
+	 checkout.phoneNumber = req.body.phonenumber;
+	 checkoutcompanyName = req.body.companyname
+	 checkout.adress = req.body.address;
+ 	 checkout.city = req.body.city;
+	 checkout.state = req.body.state;
+	 checkout.postcode = req.body.postcode;
+	 checkout.orderNotes = req.body.ordernotes;
+
+
+	// save the category name to mongo
+	checkout.save((err) => {
+		// handle errors
+		if (err) return next(err);
+		// no errors, return success message
+		req.flash('success', 'Successfully added information');
+		// redirect to the add category view
+		return res.redirect('/checkout');
+	})
+});
+
+
+
+router.get('/payment',passportConf.isAuthenticated,(req,res,next)=>
+{
+
+Cart.findOne({owner: req.user._id})
+        .populate('items.item')
+        .exec((err, foundCart) => {
+            if (err) return next(err);
+            res.render('main/payment', {
+                foundCart: foundCart
+            });
+        });
+})
+
+//***********************************************//
 router.get('/page/:page', (req, res, next) => {
     paginate(req, res, next);
 
@@ -194,18 +292,16 @@ router.get('/products/:id', (req, res, next) => {
 });
 
 // find one product and return it for single product view
+
 router.get('/product/:id', (req, res, next) => {
-    console.log(req.params.id);
-    Product.findById({_id: req.params.id}, (err, product) => {
-
+	 console.log(req.params.id);
+	 Product.findById({_id: req.params.id}, (err, product) => {
         if (err) return next(err);
-
         res.render('main/product', {
             product: product
         });
     });
 });
-
 
 router.post('/payment', (req, res, next) => {
 

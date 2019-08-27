@@ -1,132 +1,138 @@
-<% layout('layout') -%>
-<div class="container">
-	<div class="row">
-		<div class="col-lg-6">
-			<% if (message.length > 0) { %>
-			<div class="alert alert-success alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<strong>Removed!</strong> <%= message %>
-			</div>
-			<% } %>
-			<% for(var i = 0; i < foundCart.items.length; i++ ){ %>
-			<div class="list-group">
-				<span class="list-group-item">
-					<div class="row">
-						<div class="col-md-3">
-							<span><img class="product-image" src="<%= foundCart.items[i].item.image %>"></span>
-						</div>
-						<div class="col-md-6">
-							<p class="list-group-item-heading"><%= foundCart.items[i].item.name %></p>
-							
-						</div>
-						<div class="col-md-3">
-							<p><%= foundCart.items[i].quantity %></p>
-							<p>P <%= foundCart.items[i].price %></p>
-							<form action="/remove" method="post">
-								<input type="hidden" name="item" value="<%= foundCart.items[i].id %>">
-								<input type="hidden" name="price" value="<%= foundCart.items[i].price %>">
-								<button type="submit" class="btn btn-danger">Remove</button>
-							</form>
-						</div>
-					</div>
-				</span>
-			</div>
+<% layout('layout') -%> 
+<!-- ##### Header Area End ##### -->
+
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="breadcrumb-area">
+        <!-- Top Breadcrumb Area -->
+        <div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url(img/bg-img/24.jpg);">
+            <h2>Cart</h2>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Cart</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+    <!-- ##### Cart Area Start ##### -->
+    <div class="cart-area section-padding-0-100 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+				<% for(var i = 0; i < foundCart.items.length; i++ ){ %>
+                    <div class="cart-table clearfix">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Products</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>TOTAL</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="cart_product_img">
+                                        <a href="#"><img src="<%= foundCart.items[i].item.image %>" alt="Product"></a>
+                                        <h5><%= foundCart.items[i].item.name %></h5>
+                                    </td>
+                                    <td class="qty">
+                                        <div class="quantity">
+                                            <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                            <input type="number" class="qty-text" id="qty" step="1" min="1" max="99" name="quantity" value="1">
+                                            <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                        </div>
+                                    </td>
+                                    <td class="price"><span><%= (foundCart.items[i].price)%></span></td>
+                                    <td class="total_price"><span><b>Total (p):</b> <input type="text" name="priceValue" id="priceValue" class="form-control" value="<%=foundCart.items[i].item.price %>" readonly></span></td>
+                                </tr>
+								<form action="/remove" method="post">
+									<input type="hidden" name="item" value="<%= foundCart.items[i].id %>">
+									<input type="hidden" name="price" value="<%= foundCart.items[i].price %>">
+									<button type="submit" class="btn btn-danger">Remove</button>
+								</form>
+                            </tbody>
+                        </table>
+                    </div>e
+                </div>
+            </div>
 			<% }%>
-			<div class="pull-right" id="loading"></div>
-		</div>
-		<div class="col-md-3">
-			
-		</div>
-		<div class="col-md-3">
-			<div class="list-group">
-				<span class="list-group-item">
-					<h4>Total: P <span class="totalPrice"><%= foundCart.total %></span> </h4>
-					<div class="form-group">
-						<input type="hidden" value="<%= foundCart.total %>">
-						<% if (foundCart.total == 0) {%>
+            <div class="row">
 
-						<%} else {%>
-						<button type="submit" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Pay with Stripe</button>
-						<%}%>
-					</div>
-				</span>
-			</div>
-		</div>
-			<!-- Modal -->
-		<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div class="col-md-1 col-md-offset-3">
+                <!-- Coupon Discount -->
+                <div class="col-12 col-lg-6">
+                    <div class="coupon-discount mt-70">
+                        <h5>COUPON DISCOUNT</h5>
+                        <p>Coupons can be applied in the cart prior to checkout. Add an eligible item from the booth of the seller that created the coupon code to your cart. Click the green "Apply code" button to add the coupon to your order. The order total will update to indicate the savings specific to the coupon code entered.</p>
+                        <form action="#" method="post">
+                            <input type="text" name="coupon-code" placeholder="Enter your coupon code">
+                            <button type="submit">APPLY COUPON</button>
+                        </form>
+                    </div>
+                </div>
 
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">Pay with Stripe</h4>
-						<small style="color: green;">You will be redirected upon successfull payment</small>
-					</div>
-					<div class="modal-body">
-						<!-- Credit card form -->
-						<div class="container">
-							<div class="row">
-								<div class="col-xs-12 col-md-4">
-									<div class="panel panel-default">
-										<div class="panel-heading" style="height: 60px;">
-											<h3 class="panel-title"><img class="pull-right" src="http://i76.imgup.net/accepted_c22e0.png">Payment Details</h3>
-										</div>
-										<div class="panel-body">
-											<form role="form" id="payment-form" action="/payment" method="post">
-											<span style="color: red;" class="payment-errors"></span>
-												<input type="hidden" name="stripeMoney" value="<%= foundCart.total %>">
-												<div class="row">
-													<div class="col-xs-12">
-														<div class="form-group">
-															<label for="cardNumber">CARD NUMBER</label>
-															<div class="input-group">
-																<input type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
-																<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-xs-7 col-md-7">
-														<div class="form-group">
-															<label for="expMonth">EXPIRATION DATE</label>
-															<div class="col-xs-6 col-lg-6 pl-ziro">
-																<input type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
-															</div>
-															<div class="col-xs-6 col-lg-6 pl-ziro">
-																<input type="text" class="form-control" name="expYear" placeholder="YY" required data-stripe="exp_year" />
-															</div>
-														</div>
-													</div>
-													<div class="col-xs-5 col-md-5 pull-right">
-														<div class="form-group">
-															<label for="cvCode">CV CODE</label>
-															<input type="password" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc" />
-														</div>
-													</div>
-												</div>
-												
-												<div class="row">
-													<div class="col-xs-12">
-														<button class="class btn btn-success btn-lg btn-block" type="submit">Pay P (<%= foundCart.total %>)</button>
-													</div>
-												</div>
-												
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-				</div>
-				
-			</div>
-		</div> <!-- end of modal -->
-		
-	</div>
-	
-</div>
+                <!-- Cart Totals -->
+                <div class="col-12 col-lg-6">
+                    <div class="cart-totals-area mt-70">
+                        <h5 class="title--">Cart Total</h5>
+                        <div class="subtotal d-flex justify-content-between">
+                            <h5>Subtotal</h5>
+                            <h5><%= foundCart.total %></h5>
+                        </div>
+                        <div class="shipping d-flex justify-content-between">
+                            <h5>Shipping</h5>
+                            <div class="shipping-address">
+                                <form action="#" method="post">
+                                    <select class="custom-select">
+                                      <option selected>Country</option>
+                                      <option value="1">USA</option>
+                                      <option value="2">Latvia</option>
+                                      <option value="3">Japan</option>
+                                      <option value="4">Bangladesh</option>
+                                    </select>
+                                    <input type="text" name="shipping-text" id="shipping-text" placeholder="State">
+                                    <input type="text" name="shipping-zip" id="shipping-zip" placeholder="ZIP">
+                                    <button type="submit">Update Total</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="total d-flex justify-content-between">
+                            <h5>Total</h5>
+                            <h5><%= foundCart.total %></h5>
+                        </div>
+                        <div class="checkout-btn">
+                            <a href="/checkout" class="btn alazea-btn w-100">PROCEED TO CHECKOUT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Cart Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+     <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+</body>
+</html>
