@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 require('mongoose-long')(mongoose);
-const mongoosastic = require('mongoosastic');
+//const mongoosastic = require('mongoosastic');
 const Schema = mongoose.Schema;
 ObjectId = Schema.Types;
 
@@ -13,8 +13,8 @@ const ProductSchema = new Schema({
     image: String
 });
 
-ProductSchema.plugin(mongoosastic, {
+/*ProductSchema.plugin(mongoosastic, {
     hosts: ['localhost:9200']
-});
+});*/
 
 module.exports = mongoose.model('Product', ProductSchema);

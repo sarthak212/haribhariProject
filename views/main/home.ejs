@@ -1,0 +1,143 @@
+<% layout('layout') -%>
+         <!-- Animation Area Starts -->
+            <section class="Animation">
+                <div class="pageFront">
+
+                </div>
+
+                 <div class="searchForm">
+                        <form action="#" method="get">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            <input type="search" class="bg-green" name="search" id="search" placeholder="Type keywords &amp; Press Enter">
+                        </form>
+                    </div>
+            </section>
+
+         <!-- Animation Area Ends -->
+    <!-- ##### Product Area Start ##### -->
+    <section class="bg-gray section-padding-100-0" style="background-color: #eafdf2;">
+        <div class="container">
+            <div class="row" id="searchResults">
+			<% for (var i = 0; i < products.length; i++) { %>
+                <!-- Single Product Area -->
+                <div class="col-12 col-sm-6 col-lg-3 product-container">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <a href="/product/<%= products[i]._id %>"><img src="<%= products[i].image %>" alt=""></a>
+                        </div>
+                        <!-- Product Info -->
+                        <div class="product-footer mt-15 text-center">
+                            <div class="product-text">
+                                <a href="/product/<%= products[i]._id %>">
+                                    <p><%= products[i].name %></p>
+                                </a>
+                                <h6>$10.99</h6>
+                            </div>
+                            <a href="/cart" class="cart-icon"><i class="fa fa-shopping-cart" id="font-icon"></i></a>
+                        </div>
+                    </div>
+				<% } %>
+            
+
+            </div>
+        </div>
+        <div class="count">
+                <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+                <i id="pageCount">7</i>
+                <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+
+        </div>
+    </section>
+    <!-- ##### Product Area End ##### -->
+
+    <!-- ##### Blog Area Start ##### -->
+    <section class="alazea-blog-area section-padding-100-0" style="background-color: #e8f7ee;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Section Heading -->
+                    <div class="section-heading text-center">
+                        <h2>LATEST NEWS</h2>
+                        <p>The breaking news about Gardening &amp; House plants</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+
+                <!-- Single Blog Post Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-blog-post mb-100">
+                        <div class="post-thumbnail mb-30">
+                            <a href="single-post.html"><img src="img/bg-img/6.jpg" alt=""></a>
+                        </div>
+                        <div class="post-content">
+                            <a href="single-post.html" class="post-title">
+                                <h5>Garden designers across the country forecast ideas shaping the gardening world in 2018</h5>
+                            </a>
+                            <div class="post-meta">
+                                <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> 20 Jun 2018</a>
+                                <a href="#"><i class="fa fa-user" aria-hidden="true"></i> Alan Jackson</a>
+                            </div>
+                            <p class="post-excerpt">Integer luctus diam ac scerisque consectetur. Vimus ottawas nec lacus sit amet. Aenean interdus mid vitae.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Blog Post Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-blog-post mb-100">
+                        <div class="post-thumbnail mb-30">
+                            <a href="single-post.html"><img src="img/bg-img/7.jpg" alt=""></a>
+                        </div>
+                        <div class="post-content">
+                            <a href="single-post.html" class="post-title">
+                                <h5>2018 Midwest Tree and Shrub Conference: Resilient Plants for a Lasting Landscape</h5>
+                            </a>
+                            <div class="post-meta">
+                                <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> 20 Jun 2018</a>
+                                <a href="#"><i class="fa fa-user" aria-hidden="true"></i> Christina Aguilera</a>
+                            </div>
+                            <p class="post-excerpt">Integer luctus diam ac scerisque consectetur. Vimus ottawas nec lacus sit amet. Aenean interdus mid vitae.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Blog Post Area -->
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="single-blog-post mb-100">
+                        <div class="post-thumbnail mb-30">
+                            <a href="single-post.html"><img src="img/bg-img/8.jpg" alt=""></a>
+                        </div>
+                        <div class="post-content">
+                            <a href="single-post.html" class="post-title">
+                                <h5>The summer coming up, it�s time for both us and the flowers to soak up the sunshine</h5>
+                            </a>
+                            <div class="post-meta">
+                                <a href="#"><i class="fa fa-clock-o" aria-hidden="true"></i> 19 Jun 2018</a>
+                                <a href="#"><i class="fa fa-user" aria-hidden="true"></i> Mason Jenkins</a>
+                            </div>
+                            <p class="post-excerpt">Integer luctus diam ac scerisque consectetur. Vimus ottawas nec lacus sit amet. Aenean interdus mid vitae.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ##### Blog Area End ##### -->
+    
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+    <script type="js/slide.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<% layout('layout') -%>
+    <!-- ##### Header Area End ##### -->
+	<!-- ##### Breadcrumb Area Start ##### -->
+  <div class="breadcrumb-area">
+        <!-- Top Breadcrumb Area -->
+        <div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url(img/bg-img/24.jpg);">
+            <h2>About</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+    <!-- ##### Single Product Details Area Start ##### -->
+    <section class="single_product_details_area mb-50">
+        <div class="produts-details--content mb-50">
+            <div class="container">
+                <div class="row justify-content-between">
+
+                    <div class="col-12 col-md-6 col-lg-5">
+                        <div class="single_product_thumb">
+                            <div id="product_details_slider" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <a class="product-img" href="<%=product.image %>" title="Product Image">
+                                        <img class="d-block w-100" src="<%=product.image %>" alt="1">
+                                    </a>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <a class="product-img" href="<%=product.image %>" title="Product Image">
+                                        <img class="d-block w-100" src="<%=product.image %>" alt="1">
+                                    </a>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <a class="product-img" href="<%=product.image %>" title="Product Image">
+                                        <img class="d-block w-100" src="<%=product.image %>" alt="1">
+                                    </a>
+                                    </div>
+                                </div>
+                                <ol class="carousel-indicators">
+                                    <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url(<%=product.image %>);">
+                                    </li>
+                                    <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url(<%=product.image %>);">
+                                    </li>
+                                    <li data-target="#product_details_slider" data-slide-to="2" style="background-image: url(<%=product.image %>);">
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="single_product_desc">
+                            <h4 class="title"><%= product.name %></h4>
+                            <h4 class="price"><%= product.price %></h4>
+                            <div class="short_overview">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pellem malesuada in nibh selama euismod. Curabitur a rhoncus dui. Nunc lobortis cursus magna utrum faucibus. Vivamus justo nibh, pharetra non risus accumsan, tincidunt suscipit leo.</p>
+                        </div>
+
+                            <div class="cart--area d-flex flex-wrap align-items-center">
+                                <!-- Add to Cart Form -->
+                                <form action="" class="cart clearfix d-flex align-items-center" method="post">
+											<div class="btn-group" role="group" aria-label="...">
+											<input type="hidden" name="quantity" id="quantity" value="1">
+											<!--
+												<button type="submit" id="minus" class="btn btn-danger">-</button>
+												<button type="submit" id="total" class="btn btn-success">1</button>
+												<button type="submit" id="plus" class="btn btn-danger">+</button> -->
+											</div>
+											<div class="form-group"> 
+												<input type="hidden" name="product_id" id="quantity" value="<%= product._id %>">
+												<input type="hidden" name="priceHidden" id="priceHidden" class="form-control" value="<%= product.price %>">
+												<b>Product Name:</b>
+												<input type="text" name="item" class="form-control" value="<%= product.name %>" readonly>
+												<b>Total (p):</b> <input type="text" name="priceValue" id="priceValue" class="form-control" value="<%= product.price %>" readonly>
+											</div>
+											<% if (user) {%>
+												<button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
+											<%} else {%>
+												<a href="/register" class="btn btn-warning btn-lg">Signup to begin buying</a>
+											<%}%>
+								</form>
+                                <!-- Wishlist & Compare -->
+                                <div class="wishlist-compare d-flex flex-wrap align-items-center">
+                                    <a href="#" class="wishlist-btn ml-15"><i class="icon_heart_alt"></i></a>
+                                    <a href="#" class="compare-btn ml-15"><i class="arrow_left-right_alt"></i></a>
+                                </div>
+                            </div>
+
+                            <div class="products--meta">
+                                <p><span>SKU:</span> <span>CT201807</span></p>
+                                <p><span>Category:</span> <span>Outdoor Plants</span></p>
+                                <p><span>Tags:</span> <span>plants, green, cactus </span></p>
+                                <p>
+                                    <span>Share on:</span>
+                                    <span>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Single Product Details Area End ##### -->
+
+    <!-- ##### Related Product Area Start ##### -->
+    <!-- ##### Related Product Area End ##### -->
+
+
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script> 
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script> 
+</body>
+</html>

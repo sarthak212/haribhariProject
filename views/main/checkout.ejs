@@ -1,0 +1,231 @@
+<% layout('layout') -%>
+    <!-- ##### Breadcrumb Area Start ##### -->
+    <div class="breadcrumb-area">
+        <!-- Top Breadcrumb Area -->
+        <div class="top-breadcrumb-area bg-img bg-overlay d-flex align-items-center justify-content-center" style="background-image: url(img/bg-img/24.jpg);">
+            <h2>Checkout</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcrumb Area End ##### -->
+
+    <!-- ##### Checkout Area Start ##### -->
+    <div class="checkout_area mb-100">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-12 col-lg-7">
+                    <div class="checkout_details_area clearfix">
+                        <h5>Billing Details</h5>
+                        <form action="/checkout" method="POST">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="first_name">First Name *</label>
+                                    <input type="text" class="form-control" name="firstname" id="first_name" value="" required>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="last_name">Last Name *</label>
+                                    <input type="text" class="form-control" name="lastame" id="last_name" value="" required>
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <label for="email_address">Email Address *</label>
+                                    <input type="email" class="form-control" name="emailaddress" id="email_address" value="">
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <label for="phone_number">Phone Number *</label>
+                                    <input type="number" class="form-control" name="phonenumber" id="phone_number" min="0" value="">
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <label for="company">Company Name</label>
+                                    <input type="text" class="form-control" name="companyname" id="company" value="">
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <label for="company">Address *</label>
+                                    <input type="text" class="form-control" name="address" id="address" value="">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="city">Town/City *</label>
+                                    <input type="text" class="form-control" name="city" id="city" value="">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="state">State/Province *</label>
+                                    <input type="text" class="form-control" name="state" id="state" value="">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="country">Country</label>
+                                    <select class="custom-select d-block w-100" id="country">
+                                        <option value="usa">United States</option>
+                                        <option value="uk">United Kingdom</option>
+                                        <option value="ger">Germany</option>
+                                        <option value="fra">France</option>
+                                        <option value="ind">India</option>
+                                        <option value="aus">Australia</option>
+                                        <option value="bra">Brazil</option>
+                                        <option value="cana">Canada</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="postcode">Postcode/Zip</label>
+                                    <input type="text" class="form-control" name="postcode" id="postcode" value="">
+                                </div>
+                                <div class="col-md-12 mb-4">
+                                    <label for="order-notes">Order Notes</label>
+                                    <textarea class="form-control" name="ordernotes" id="order-notes" cols="30" rows="10" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                </div>
+								<div>
+								  <input type="submit" id="submitdetails" name="submitdetails" value="submit"/>
+								</div>
+                                <div class="col-12">
+                                    <div class="d-flex align-items-center">
+                                        <!-- Single Checkbox -->
+                                        <div class="custom-control custom-checkbox d-flex align-items-center mr-30">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">Ship to a different address?</label>
+                                        </div>
+                                        <!-- Single Checkbox -->
+                                        <div class="custom-control custom-checkbox d-flex align-items-center">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                                            <label class="custom-control-label" for="customCheck2">Create an account?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="checkout-content">
+                        <h5 class="title--">Your Order</h5>
+                        <div class="products">
+                            <div class="products-data">
+                                <h5>Products:</h5>
+                                <div class="single-products d-flex justify-content-between align-items-center">
+                                    <p>Recuerdos Plant</p>
+                                    <h5><%= foundCart.total %> rs</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="shipping d-flex justify-content-between align-items-center">
+                            <h5>Shipping</h5>
+                            <h5>0 rs</h5>
+                        </div>
+                        <div class="order-total d-flex justify-content-between align-items-center">
+                            <h5>Order Total</h5>
+                            <h5><%= foundCart.total %></h5>
+                        </div>
+                       <div class="product-meta d-flex">
+					        <a href="/payment" class="add-to-cart-btn">move to payment</a>
+					   </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+			
+		<div class="conatiner">
+		   <div class="row">
+		     <div class="col-lg-6">
+				<!-- Modal -->
+			<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="col-md-1 col-md-offset-3">
+
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Pay with Stripe</h4>
+						<small style="color: green;">You will be redirected upon successfull payment</small>
+					</div>
+					<div class="modal-body">
+						<!-- Credit card form -->
+						<div class="container">
+							<div class="row">
+								<div class="col-xs-12 col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading" style="height: 60px;">
+											<h3 class="panel-title"><img class="pull-right" src="http://i76.imgup.net/accepted_c22e0.png">Payment Details</h3>
+										</div>
+										<div class="panel-body">
+											<form role="form" id="payment-form" action="/payment" method="post">
+											<span style="color: red;" class="payment-errors"></span>
+												<input type="hidden" name="stripeMoney" value="<%= foundCart.total %>">
+												<div class="row">
+													<div class="col-xs-12">
+														<div class="form-group">
+															<label for="cardNumber">CARD NUMBER</label>
+															<div class="input-group">
+																<input type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
+																<span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-xs-7 col-md-7">
+														<div class="form-group">
+															<label for="expMonth">EXPIRATION DATE</label>
+															<div class="col-xs-6 col-lg-6 pl-ziro">
+																<input type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
+															</div>
+															<div class="col-xs-6 col-lg-6 pl-ziro">
+																<input type="text" class="form-control" name="expYear" placeholder="YY" required data-stripe="exp_year" />
+															</div>
+														</div>
+													</div>
+													<div class="col-xs-5 col-md-5 pull-right">
+														<div class="form-group">
+															<label for="cvCode">CV CODE</label>
+															<input type="password" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc" />
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-xs-12">
+														<button class="class btn btn-success btn-lg btn-block" type="submit">Pay P (<%= foundCart.total %>)</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div> <!-- end of modal -->
+
+		</div>
+		</div>
+		</div>
+    <!-- ##### Checkout Area End ##### -->
+
+    <!-- ##### Footer Area Start ##### -->
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### All Javascript Files ##### -->
+    <!-- jQuery-2.2.4 js -->
+    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="js/bootstrap/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="js/plugins/plugins.js"></script>
+    <!-- Active js -->
+    <script src="js/active.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+ <nav class="nav2">
+                        <!-- Nav Brand -->
+                        <a href="/"><img src="img/core-img/logo.png" alt=""></a>
+
+                            <!-- Navbar Start -->
+                            <div class="navbar1">
+                                <a href="/portfolio">Plants Benefits</a>
+
+                                <%if (!user) {%>      
+										<a href="/register">Signup</a>
+										<a href="/login">Login</a>
+								<%}else {%>
+										<a href="/profile"><%= user.profile.name %></a>
+										<a href="/logout">Logout</a>
+									<% } %>
+                                    <a href="/cart"><i class="fa fa-shopping-cart cart" aria-hidden="true"></i></a>
+
+                                </div>
+                            <!-- Navbar End -->
+                                </nav>
+                   

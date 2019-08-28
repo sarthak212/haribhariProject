@@ -34,8 +34,8 @@ passport.use('local', new LocalStrategy({
         }
 
         // 2) Check if the password is correct
-        const isValid = await User.comparePasswords(password, user.password);
-        if(!isValid)
+      //  const isValid = await User.comparePasswords(password, user.password);
+        if(!user.comparePassword(password))
         {
             return done(null,false,{ message : 'Unknown Password'});
         }
@@ -45,7 +45,7 @@ passport.use('local', new LocalStrategy({
             return done(null,false,{message:'You need to verify email first'});
         }
 
-        if (isValid) {
+        if (user.comparePassword(password)) {
             return done(null, user);
         } else {
             return done(null, false, { message: 'Unknown Password' });

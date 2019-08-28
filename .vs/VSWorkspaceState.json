@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\config",
+    "\\routes",
+    "\\views",
+    "\\views\\partials"
+  ],
+  "SelectedNode": "\\config\\passport.js",
+  "PreviewInSolutionExplorer": false
+}
